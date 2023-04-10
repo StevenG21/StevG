@@ -16,12 +16,11 @@ string texto="";
 
 ///Prototipos de funciones
 void decodificacion_1();
-
-
-
+string metodo2(string a, string b);
+void metodo_codificacion2();
 char valor_ascii(string a);
 void convertir_a_caracter();
-string implementacion_decodificacion2(string a, string b);
+
 
 
 
@@ -72,7 +71,7 @@ int main()
           case 2:
               system("clear");
               cout<<"->Codificacion 2 seleccionada."<<endl;
-            //  metodo_codificacion2();
+            metodo_codificacion2();
               break;
 
           default:
@@ -183,23 +182,55 @@ void decodificacion_1(){
 
 }
 
+void metodo_codificacion2(){ //listo
 
+    string cadena,bin_modificado,bloque1,nombre;
 
+    int tam;
+    cout<<"Ingrese el nombre para el archivo decodificado: ";cin>>nombre;
+    cout<<"Ingrese el valor de la semilla: ";cin>>seed;
 
+   // archivo_lectura.open("archivo_binario.bin",ios::in);
+//    if(archivo_lectura.is_open()){
+//        while(!(archivo_lectura.eof())){
+//            archivo_lectura>>cadena;
+//        }
+        archivo_escritura.open(nombre+".txt",ios::out);
+        tam=texto.length();
 
+        for(int i=0;i<tam;i+=seed){
+            bloque1=cadena.substr(i,seed);
+            bin_modificado= bin_modificado + metodo2(bloque1,bloque1);
+            //archivo_escritura<<bin_modificado;
+        }
+        valor_ascii(bin_modificado);
 
+    }
+    else{
+        cout<<"Lo siento,el archivo '"<<nombre<<"' no se pudo decodificar."<<endl;
+    }
+    archivo_escritura.close();
+    archivo_lectura.close();
+}
 
-string implementacion_decodificacion2(string a, string b){
-    int tam=a.length();
+string metodo2(string a, string b){ //listo
+    int tam;
+    tam=a.length();
     for (int i=0,j=0; i<tam; i++){
         if(i==0){
-            b[tam-1]=a[i];
+            b[i]=a[tam-1];
         }
         else{
-            b[j]=a[i];
+            b[i]=a[j];
             j++;
         }
-
     }
     return b;
 }
+
+
+
+
+
+
+
