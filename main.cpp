@@ -15,7 +15,8 @@ int seed=0;
 string codificador1(string a); // Utilizada en el metodo 1
 string binario(string cadena); //Retorna un string con toda la representacion binaria
 void metodo_codificacion1();  //Primer metodo
-
+string metodo2(string a, string b);
+void metodo_codificacion2();
 
 
 
@@ -76,7 +77,7 @@ int main()
             case 2:
                 system("clear");
                 cout<<"->Codificacion 2 seleccionada."<<endl;
-              //  metodo_codificacion2();
+                metodo_codificacion2();
                 break;
 
             default:
@@ -204,5 +205,48 @@ string codificador1(string a){ //Recibe un string y retorna un string
 
 
 
+void metodo_codificacion2(){ //listo
+
+    string cadena,bin_modificado,bloque1,nombre;
+
+    int tam;
+    cout<<"Ingrese el nombre para el archivo codificado: ";cin>>nombre;
+    cout<<"Ingrese el valor de la semilla: ";cin>>seed;
+
+    archivo_lectura.open("archivo_binario.bin",ios::in);
+    if(archivo_lectura.is_open()){
+        while(!(archivo_lectura.eof())){
+            archivo_lectura>>cadena;
+        }
+        archivo_escritura.open(nombre+".txt",ios::out);
+        tam=cadena.length();
+
+        for(int i=0;i<tam;i+=seed){
+            bloque1=cadena.substr(i,seed);
+            bin_modificado= metodo2(bloque1,bloque1);
+            archivo_escritura<<bin_modificado;
+        }
+    }
+    else{
+        cout<<"Lo siento,el archivo '"<<nombre<<"' no se pudo codificar."<<endl;
+    }
+    archivo_escritura.close();
+    archivo_lectura.close();
+}
+
+string metodo2(string a, string b){ //listo
+    int tam;
+    tam=a.length();
+    for (int i=0,j=0; i<tam; i++){
+        if(i==0){
+            b[i]=a[tam-1];
+        }
+        else{
+            b[i]=a[j];
+            j++;
+        }
+    }
+    return b;
+}
 
 
